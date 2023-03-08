@@ -57,6 +57,8 @@ const UserSchema = gql`
         username: String!
         fullName: String!
         password: String!
+        birthDay: String!
+        gender: String!
     }
 
     input RequestPasswordResetInput {

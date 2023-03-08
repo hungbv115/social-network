@@ -1,4 +1,4 @@
-import { uploadToCloudinary, deleteFromCloudinary } from '../utils/cloudinary';
+
 import { uploadFile, deleteFile } from '../utils/minioUtils';
 import { v4 as uuid } from 'uuid';
 

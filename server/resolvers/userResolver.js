@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import { withFilter } from 'apollo-server';
 
-import { uploadToCloudinary } from '../utils/cloudinary';
 import { generateToken } from '../utils/generateToken';
 import { pubSub } from '../utils/apollo-server';
 import { sendEmail } from '../utils/email';
@@ -316,7 +315,7 @@ const Mutation = {
      * @param {string} username
      * @param {string} password
      */
-    signup: async (root, { input: { fullName, email, username, password } }, { User }) => {
+    signup: async (root, { input: { fullName, email, username, password, birthDay, gender } }, { User }) => {
         // Check if user with given email or username already exists
         const user = await User.findOne().or([{ email }, { username }]);
         if (user) {
@@ -368,7 +367,9 @@ const Mutation = {
             fullName,
             email,
             username,
-            password
+            password,
+            birthDay,
+            gender
         }).save();
 
         return {

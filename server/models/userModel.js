@@ -25,6 +25,20 @@ const userSchema = new Schema({
         trim: true,
         unique: true,
     },
+    birthDay: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true,
+        unique: true,
+    },
+    gender: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true,
+        unique: true,
+    },
     passwordResetToken: String,
     passwordResetTokenExpiry: Date,
     password: {
