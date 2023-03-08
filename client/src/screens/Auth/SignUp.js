@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
+import { FormControl , TextField , InputLabel, Box, Typography , Select , MenuItem , Radio , RadioGroup , FormControlLabel } from '@material-ui/core';
 import { Spacing, Container } from 'styles/Layout';
 import { H1, Error } from 'styles/Text';
 import { InputText, Button } from 'styles/Form';
@@ -15,12 +15,13 @@ import { SIGN_UP } from 'graphql/user';
 import * as Routes from 'routes';
 
 const Root = styled(Container)`
+    width: 100vw;
+    height: 100vh; 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 60px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
     @media (min-width: ${(p) => p.theme.screen.md}) {
         justify-content: space-between;
@@ -44,20 +45,69 @@ const Heading = styled(H1)`
 `;
 
 const Form = styled.div`
+    width: 430px;
+    padding: 15px;
+    margin-top: 100px;
     padding: ${(p) => p.theme.spacing.md};
     border-radius: ${(p) => p.theme.radius.sm};
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 100%;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow:  0 0 5px 0 #ddd;
 
     @media (min-width: ${(p) => p.theme.screen.sm}) {
         width: 450px;
     }
+
+    .birthCaption{
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+        color: grey;   
+    }
+
+    .MuiTextField-root{
+        margin:5px;
+    }
+    .MuiFormControl-fullWidth{
+        margin: 0 5px;
+        .MuiSelect-root{
+            padding: 10px;
+        }
+    }
+    .Mui-error{
+        margin-left: 0;
+    }
 `;
 
-const WapperDiv = styled.div`
-    display: flex;
-    flex-direction: row;
+const BoxCus = styled(Box)`
+    margin: 15px 0;
+    .Gender{
+        >div{
+            width: 100%;
+        }
+        .RadioGroup{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            overflow: hidden;
+            label{
+                width: 90px;
+                display: flex;
+                justify-content: center;
+                border: 1px solid #ddd;
+                padding: 8px 20px;
+                border-radius: 5px;
+                margin: 0;
+                .MuiRadio-root{
+                    padding: 0;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
 `;
+
 
 /**
  * Sign Up
@@ -71,6 +121,10 @@ const SignUp = ({ history, refetch }) => {
         username: '',
         email: '',
         password: '',
+        day:"",
+        month:"",
+        year:"",
+        gender:'',
     });
     const [signup, { loading }] = useMutation(SIGN_UP);
 
@@ -121,7 +175,8 @@ const SignUp = ({ history, refetch }) => {
 
         try {
             const response = await signup({
-                variables: { input: { fullName: firstName + " " + lastName, email, password, username } },
+                variables: { input: { fullName: firstName + " " + lastName, email, password, username, 
+                birthDay: "ngày " + day + " " + month + " năm" + year, gender } },
             });
             localStorage.setItem('token', response.data.signup.token);
             await refetch();
@@ -131,7 +186,12 @@ const SignUp = ({ history, refetch }) => {
         }
     };
 
-    const {firstName, lastName, email, password, username } = values;
+    const Months = ["Tháng 1" , "Tháng 2" , "Tháng 3" , "Tháng 4" , "Tháng 5" , "Tháng 6" , "Tháng 7" ,
+     "Tháng 8" , "Tháng 9" , "Tháng 10" , "Tháng 11" , "Tháng 12"];
+
+    var currentTime = new Date();
+
+    const {firstName, lastName, email, password, username, year, month, day, gender } = values;
     return (
         <Root maxWidth="lg">
             <Head />
@@ -143,7 +203,7 @@ const SignUp = ({ history, refetch }) => {
 
                 <p>Xem ảnh và cập nhật từ bạn bè của bạn.</p>
                 <p>Làm theo sở thích của bạn.</p>
-                <p>Nghe những gì mọi người đang nói về.</p>
+                <p>Nghe những gì mọi người đang nói về thế giới.</p>
             </Welcome>
 
             <Form>
@@ -152,28 +212,27 @@ const SignUp = ({ history, refetch }) => {
                 </Spacing>
 
                 <form onSubmit={(e) => handleSubmit(e, signup)}>
-                    <WapperDiv>
-                        <InputText
-                            type="text"
-                            name="firstName"
-                            values={firstName}
-                            onChange={handleChange}
-                            placeholder="Họ"
-                            borderColor="white"
-                        />
-                        <InputText
-                            type="text"
-                            name="lastName"
-                            values={lastName}
-                            onChange={handleChange}
-                            placeholder="Tên"
-                            borderColor="white"
-                            style={{marginLeft:"5px"}}
-                        />
-                    </WapperDiv>
-                    
-                    <Spacing top="xs" bottom="xs">
-                        <InputText
+                    <FormControl>
+                        <Box className='nameFields' display='flex' justifyContent='center'>
+                            <TextField 
+                                type="text"
+                                name="firstName"
+                                values={firstName}
+                                onChange={handleChange}
+                                placeholder="Họ"
+                                borderColor="white"
+                            />
+                            <TextField 
+                                type="text"
+                                name="lastName"
+                                values={lastName}
+                                onChange={handleChange}
+                                placeholder="Tên"
+                                borderColor="white"
+                                style={{marginLeft:"5px"}}
+                            />
+                        </Box>
+                        <TextField 
                             type="text"
                             name="email"
                             values={email}
@@ -181,17 +240,15 @@ const SignUp = ({ history, refetch }) => {
                             placeholder="Email"
                             borderColor="white"
                         />
-                    </Spacing>
-                    <InputText
-                        type="text"
-                        name="username"
-                        values={username}
-                        onChange={handleChange}
-                        placeholder="Tài khoản đăng nhập"
-                        borderColor="white"
-                    />
-                    <Spacing top="xs" bottom="xs">
-                        <InputText
+                        <TextField 
+                            type="text"
+                            name="username"
+                            values={username}
+                            onChange={handleChange}
+                            placeholder="Tài khoản đăng nhập"
+                            borderColor="white"
+                        />
+                        <TextField 
                             type="password"
                             name="password"
                             values={password}
@@ -199,7 +256,63 @@ const SignUp = ({ history, refetch }) => {
                             placeholder="Mật khẩu"
                             borderColor="white"
                         />
-                    </Spacing>
+                    </FormControl>
+                    
+                    <Typography className='birthCaption' display='block' variant='caption'>Sinh nhật</Typography>
+                    <Box className='birth' display='flex' >
+                        <FormControl fullWidth>
+                            <Select
+                                name='day'
+                                value={values.day ? values.day : currentTime.getDate() }
+                                onChange={handleChange}
+                                variant='outlined'
+                                error={error.day ? true : false} 
+                                >
+                                {[...Array(31)].map((num,i) => (
+                                    <MenuItem  key={i}  value={`${i+1}`} >{i+1}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth>
+                            <Select
+                                name='month'
+                                value={values.month ? values.month : Months[currentTime.getMonth()] }
+                                onChange={handleChange}
+                                variant='outlined'
+                                error={error.month ? true : false} 
+                            >
+                                {Months.map((month ,i) => (
+                                    <MenuItem key={i} value={month}>{month}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth onClick={(e) => e.stopPropagation()} >
+                            <Select
+                                name='year'
+                                value={values.year ? values.year : currentTime.getFullYear() }
+                                onChange={handleChange}
+                                variant='outlined'
+                                error={error.year ? true : false}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {[...Array(currentTime.getFullYear()-1904)].map((num,i) => (
+                                    <MenuItem  key={i}  value={`${ currentTime.getFullYear()-i}`} >{currentTime.getFullYear()-i}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <BoxCus className='GenderContainer'>
+                        <Typography className='birthCaption Gender' display='block' variant='caption'>Giới tính</Typography>
+                        <Box className='Gender' display='flex' >
+                            <FormControl>
+                                <RadioGroup name='gender' className='RadioGroup' defaultValue="male" onChange={handleChange}  >
+                                    <FormControlLabel  value='Nam' control={<Radio  size='small' color='primary' />} label='Nam' />
+                                    <FormControlLabel value='Nữ' control={<Radio size='small' color='primary' />} label='Nữ' />
+                                    <FormControlLabel value='Tùy chỉnh' control={<Radio size='small'   color='primary' />} label='Tùy chỉnh' />
+                                </RadioGroup>
+                            </FormControl>
+                        </Box>
+                    </BoxCus>
                     {error && (
                         <Spacing bottom="sm" top="sm">
                             <Error>{error}</Error>

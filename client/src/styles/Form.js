@@ -66,7 +66,7 @@ export const Button = styled.button`
  */
 export const InputText = styled.input`
     outline: 0;
-    height: 36px;
+    height: 39px;
     width: 100%;
     transition: border 0.1s;
     border-radius: ${(p) => p.theme.radius.sm};
