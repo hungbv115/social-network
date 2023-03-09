@@ -15,6 +15,7 @@ const Label = styled.label`
     align-items: center;
     padding: 9px 14px;
     cursor: pointer;
+    color: #000;
     transition: background-color 0.1s;
     font-weight: ${(p) => p.theme.font.weight.bold};
     border-radius: ${(p) => p.theme.radius.lg};

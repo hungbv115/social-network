@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { FormControl , TextField , InputLabel, Box, Typography , Select , MenuItem , Radio , RadioGroup , FormControlLabel } from '@material-ui/core';
+import { FormControl , TextField ,  Box, Typography , Select , MenuItem , Radio , RadioGroup , FormControlLabel } from '@material-ui/core';
 import { Spacing, Container } from 'styles/Layout';
 import { H1, Error } from 'styles/Text';
-import { InputText, Button } from 'styles/Form';
+import { Button } from 'styles/Form';
 
 import Head from 'components/shared/Head';
 
@@ -15,13 +15,11 @@ import { SIGN_UP } from 'graphql/user';
 import * as Routes from 'routes';
 
 const Root = styled(Container)`
-    width: 100vw;
-    height: 100vh; 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 60px;
+    margin-top: 40px;
 
     @media (min-width: ${(p) => p.theme.screen.md}) {
         justify-content: space-between;
@@ -45,9 +43,10 @@ const Heading = styled(H1)`
 `;
 
 const Form = styled.div`
+    position: relative;
+    top: 50px;
     width: 430px;
     padding: 15px;
-    margin-top: 100px;
     padding: ${(p) => p.theme.spacing.md};
     border-radius: ${(p) => p.theme.radius.sm};
     border-radius: 12px;
@@ -176,7 +175,7 @@ const SignUp = ({ history, refetch }) => {
         try {
             const response = await signup({
                 variables: { input: { fullName: firstName + " " + lastName, email, password, username, 
-                birthDay: "ngày " + day + " " + month + " năm" + year, gender } },
+                birthDay: "ngày " + day + " " + month + " năm " + year, gender } },
             });
             localStorage.setItem('token', response.data.signup.token);
             await refetch();

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import styled from 'styled-components';
-
+import { Box } from "@material-ui/core"
 import { Spacing, Overlay, Container } from 'styles/Layout';
 import { Error } from 'styles/Text';
 import { Button } from 'styles/Form';
 import Avatar from 'components/shared/Avatar';
-
+import CloseIcon from '@material-ui/icons/Close';
 import PostImageUpload from './PostImageUpload';
 
 import { IconButton } from 'components/icons';
@@ -24,11 +24,31 @@ import { HOME_PAGE_POSTS_LIMIT } from 'constants/DataLimit';
 import PostVideoUpload from './PostVideoUpload';
 import  Picker from 'emoji-picker-react';
 
-const Root = styled(Container)`
-    border: 0;
+const Root = styled(Box)`
+    position: relative;
+    margin: 0 auto;
+    margin-top: ${p => p.marginTop ? p.theme.spacing[p.marginTop] : 0};
+    width: 100%;
+    max-width: ${p => (p.maxWidth && p.theme.screen[p.maxWidth])};
+    padding: ${p => p.padding ? `0 ${p.theme.spacing[p.padding]}` : `0 ${p.theme.spacing.sm}`};
+    z-index: ${p => p.zIndex && p.theme.zIndex[p.zIndex]};
+    background-color: ${p => p.color && p.theme.colors[p.color]};
+    border-radius: ${p => p.radius && p.theme.radius[p.radius]};
     border: 1px solid ${(p) => p.theme.colors.border.main};
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     border-radius: 10px;
+    .uploadImages{
+        position: relative;
+        svg{
+            background: #ddd;
+            border-radius: 50%;
+            padding: 5px;
+            position: absolute;
+            top: 5px ;
+            right: 10px;
+            cursor: pointer;
+        }
+    }
 `;
 
 const Wrapper = styled.div`
@@ -36,13 +56,13 @@ const Wrapper = styled.div`
     flex-direction: row;
     justify-content: space-between;
     padding: ${(p) => p.theme.spacing.xs} 0;
-    border-bottom: 1px solid ${(p) => p.theme.colors.border.main};
 `;
 
 const WrapperIcon = styled.div`
     display: flex;
     justify-content: flex-start;
     padding: ${(p) => p.theme.spacing.xs} 0;
+    border-top: 1px solid ${(p) => p.theme.colors.border.main};
 `;
 
 const Textarea = styled.textarea`
@@ -53,31 +73,33 @@ const Textarea = styled.textarea`
     border: 0;
     outline: none;
     resize: none;
+    &::placeholder{
+        font-size: 18px;
+    }
     transition: 0.1s ease-out;
     height: ${(p) => (p.focus ? '75px' : '40px')};
     font-size: ${(p) => p.theme.font.size.xs};
-    background-color: ${(p) => p.theme.colors.grey[100]};
     border-radius: ${(p) => p.theme.radius.xl};
 `;
 
-const ImagePreviewContainer = styled.div`
-    width: 150px;
-    height: 150px;
-    overflow: hidden;
-    flex-shrink: 0;
-    box-shadow: ${(p) => p.theme.shadows.sm};
-`;
+// const ImagePreviewContainer = styled.div`
+//     width: 150px;
+//     height: 150px;
+//     overflow: hidden;
+//     flex-shrink: 0;
+//     box-shadow: ${(p) => p.theme.shadows.sm};
+// `;
 
 const ImagePreview = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    // width: 100%;
+    // height: 100%;
+    // object-fit: cover;
 `;
 
 const VideoPreview = styled.source`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    // width: 100%;
+    // height: 100%;
+    // object-fit: cover;
 `;
 
 const Options = styled.div`
@@ -122,6 +144,9 @@ const ButtonClick = styled.div`
     margin-top: 6px;
     cursor: pointer;
 `
+// const BoxWapper = styled(Box)`
+
+// `
 
 /**
  * Component for creating a post
@@ -167,6 +192,9 @@ const CreatePost = () => {
         setApiError(false);
     };
 
+    const removeImage = () => {
+        setImage('');
+    };
     const handleOnFocus = () => setIsFocused(true);
 
     const handlePostImageUpload = (e) => {
@@ -236,16 +264,20 @@ const CreatePost = () => {
                             placeholder={auth.user.fullName + " ơi, bạn đang nghĩ gì thế?"}
                         />
                         
-                        <ButtonClick disabled={isFocused} onClick={handleEmojiPickerhideShow}>
-                            <IconButton />
-                        </ButtonClick>
-                            
-                        {showEmojiPicker && (
-                            <EmojiButton className="emoji-picker-react">
-                                <Picker onEmojiClick={onEmojiClick} disableAutoFocus={true}/>
-                            </EmojiButton>
-                        )}
+                                               
                     </Wrapper>
+                    {isFocused && (
+                        <div style={{textAlign: "right", margin: "3px"}}>
+                            <ButtonClick disabled={isFocused} onClick={handleEmojiPickerhideShow}>
+                                <IconButton />
+                            </ButtonClick>
+                            {showEmojiPicker && (
+                                <EmojiButton className="emoji-picker-react">
+                                    <Picker onEmojiClick={onEmojiClick} disableAutoFocus={true}/>
+                                </EmojiButton>
+                            )}
+                        </div>
+                    )}
 
                     {!isFocused && (
                     <WrapperIcon>
@@ -258,22 +290,20 @@ const CreatePost = () => {
                     {video ? 
                     (
                         image && (
-                        <Spacing bottom="sm">
-                            <video width="300" controls>
+                        <Box className="uploadImages">
+                            <video width="557" controls>
                                 <VideoPreview src={URL.createObjectURL(image)} />
                             </video>
-                        </Spacing>
+                            <CloseIcon onClick={removeImage} />
+                        </Box>
                     ))
                     : (
                         image && (
-                        <Spacing bottom="sm">
-                            <ImagePreviewContainer>
-                                <ImagePreview src={URL.createObjectURL(image)} />
-                            </ImagePreviewContainer>
-                        </Spacing> 
+                        <Box className="uploadImages">
+                                <ImagePreview src={URL.createObjectURL(image)} alt="uploaded image" width='100%' />
+                            <CloseIcon onClick={removeImage} />
+                        </Box> 
                     ))}
-
-
 
                     {isFocused && (
                         <Options>
@@ -285,10 +315,10 @@ const CreatePost = () => {
                             
                             <Buttons>
                                 <Button text type="button" onClick={handleReset}>
-                                    Cancel
+                                    Thoát
                                 </Button>
                                 <Button disabled={isShareDisabled} type="submit">
-                                    Share
+                                    Đăng bài
                                 </Button>
                             </Buttons>
                         </Options>

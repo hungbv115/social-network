@@ -8,10 +8,13 @@ import { GET_POST, GET_POSTS, GET_FOLLOWED_POSTS } from 'graphql/post';
 import { CREATE_COMMENT } from 'graphql/comment';
 
 import { Textarea, Button } from 'styles/Form';
+import { IconButton } from 'components/icons';
 
 import { NotificationType } from 'constants/NotificationType';
 
 import { useNotifications } from 'hooks/useNotifications';
+
+import  Picker, { Emoji } from 'emoji-picker-react';
 
 import { useStore } from 'store';
 
@@ -21,7 +24,41 @@ const Form = styled.form`
     align-items: flex-start;
     justify-content: flex-start;
 `;
+const ButtonClick = styled.div`
+    padding-left: ${(p) => p.theme.spacing.sm};
+    padding-top: ${(p) => p.theme.spacing.xs};
+    cursor: pointer;
+`
+const EmojiButton = styled.div`
+    position: absolute;
+    top: -470px;
+    border-color: #9a86f3;
+    border-radius: 5%;
+    .emoji-scroll-wrapper::-webkit-scrollbar {
+    background-color: #080420;
+    width: 5px;
+    &-thumb {
+        background-color: #9a86f3;
+    }
+    .emoji-categories {
+        button {
+          filter: contrast(0);
+        }
+      }
+    .emoji-search {
+    background-color: transparent;
+    border-color: #9a86f3;
+    }
+    .emoji-group:before {
+    background-color: #080420;
+    }
+`;
 
+const Options = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+`
 /**
  * Creates a comment for a post
  */
@@ -31,6 +68,7 @@ const CreateComment = ({ post, focus }) => {
     const [comment, setComment] = useState('');
     const buttonEl = useRef(null);
     const TextareaEl = useRef(false);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [createComment, { loading }] = useMutation(CREATE_COMMENT, {
         refetchQueries: [
             { query: GET_FOLLOWED_POSTS, variables: { userId: auth.user.id } },
@@ -44,6 +82,18 @@ const CreateComment = ({ post, focus }) => {
     useEffect(() => {
         focus && TextareaEl.current.focus();
     }, [focus]);
+
+    const onEmojiClick = (event) => {
+        console.log(event);
+        let message = comment;
+        message += event.emoji;
+        setComment(message);
+    }
+
+    const handleEmojiPickerhideShow = () => {
+        setShowEmojiPicker(!showEmojiPicker);
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -72,24 +122,35 @@ const CreateComment = ({ post, focus }) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Textarea
-                onChange={(e) => setComment(e.target.value)}
-                value={comment}
-                placeholder="Add a comment..."
-                onKeyDown={onEnterPress}
-                ref={TextareaEl}
-            />
+            <Options>
+                <Textarea
+                    onChange={(e) => setComment(e.target.value)}
+                    value={comment}
+                    placeholder="Viết bình luận..."
+                    onKeyDown={onEnterPress}
+                    ref={TextareaEl}
+                />
+                <ButtonClick onClick={handleEmojiPickerhideShow}>
+                    <IconButton />
+                </ButtonClick>
+                
+                {showEmojiPicker && (
+                    <EmojiButton className="emoji-picker-react">
+                        <Picker onEmojiClick={onEmojiClick} disableAutoFocus={true}/>
+                    </EmojiButton>
+                )}
 
-            <Button
-                type="submit"
-                color={comment ? 'primary.main' : 'grey[500]'}
-                weight="bold"
-                text
-                ref={buttonEl}
-                disabled={!comment || loading}
-            >
-                Post
-            </Button>
+                <Button
+                    type="submit"
+                    color={comment ? 'primary.main' : 'grey[500]'}
+                    weight="bold"
+                    text
+                    ref={buttonEl}
+                    disabled={!comment || loading}
+                >
+                    Bình luận
+                </Button>
+            </Options>
         </Form>
     );
 }

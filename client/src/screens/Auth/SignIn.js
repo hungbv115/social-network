@@ -93,7 +93,7 @@ const SignIn = ({ history, location, refetch }) => {
                         name="emailOrUsername"
                         values={emailOrUsername}
                         onChange={handleChange}
-                        placeholder="Email or Username"
+                        placeholder="Email hoặc Username"
                         borderColor="white"
                     />
                 </InputContainer>
@@ -104,7 +104,7 @@ const SignIn = ({ history, location, refetch }) => {
                         name="password"
                         values={password}
                         onChange={handleChange}
-                        placeholder="Password"
+                        placeholder="Mật khẩu"
                         borderColor="white"
                     />
                     <A to={Routes.FORGOT_PASSWORD}>
