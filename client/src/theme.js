@@ -99,7 +99,7 @@ export default {
      * Breakpoints
      */
     screen: {
-        xs: '540px',
+        xs: '565px',
         sm: '640px',
         md: '1007px',
         lg: '1100px',

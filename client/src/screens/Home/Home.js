@@ -98,7 +98,7 @@ const Home = () => {
                                         </Modal>
                                     }
 
-                                    <Spacing bottom="sm" top="sm">
+                                    <Spacing bottom="xs" top="sm">
                                         <PostCard
                                             author={post.author}
                                             imagePublicId={post.imagePublicId}
@@ -123,7 +123,7 @@ const Home = () => {
     };
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="xs">
             <Head />
 
             <Spacing top="lg" />

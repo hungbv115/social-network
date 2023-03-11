@@ -32,8 +32,12 @@ const ErrorMessage = styled.div`
 const ForgotPassword = styled.div`
     font-size: ${(p) => p.theme.font.size.xxs};
     margin-top: ${(p) => p.theme.spacing.xxs};
-    color: ${(p) => p.theme.colors.white};
+    color: ${(p) => p.theme.colors.black};
 `;
+
+const ButtonZ = styled(Button)`
+    margin-top: 2px;
+`
 
 /**
  * Sign In 
@@ -94,7 +98,7 @@ const SignIn = ({ history, location, refetch }) => {
                         values={emailOrUsername}
                         onChange={handleChange}
                         placeholder="Email hoặc Username"
-                        borderColor="white"
+                        borderColor="black"
                     />
                 </InputContainer>
 
@@ -105,14 +109,14 @@ const SignIn = ({ history, location, refetch }) => {
                         values={password}
                         onChange={handleChange}
                         placeholder="Mật khẩu"
-                        borderColor="white"
+                        borderColor="black"
                     />
                     <A to={Routes.FORGOT_PASSWORD}>
-                        <ForgotPassword>Forgot password?</ForgotPassword>
+                        <ForgotPassword>Quên mật khẩu?</ForgotPassword>
                     </A>
                 </InputContainer>
 
-                <Button disabled={loading}>Log in</Button>
+                <ButtonZ disabled={loading}>Đăng nhập</ButtonZ>
             </Root>
         </form>
     );

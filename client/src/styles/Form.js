@@ -69,7 +69,7 @@ export const InputText = styled.input`
     height: 39px;
     width: 100%;
     transition: border 0.1s;
-    border-radius: ${(p) => p.theme.radius.sm};
+    border-radius: ${(p) => p.theme.radius.md};
     padding-left: ${(p) => p.theme.spacing.xs};
     border: 1px solid ${(p) => (p.borderColor ? p.theme.colors[p.borderColor] : p.theme.colors.border.main)};
     color: ${(p) => p.theme.colors.text.secondary};

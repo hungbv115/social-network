@@ -49,6 +49,7 @@ const Root = styled(Box)`
             cursor: pointer;
         }
     }
+
 `;
 
 const Wrapper = styled.div`

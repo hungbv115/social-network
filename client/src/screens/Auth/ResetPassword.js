@@ -100,7 +100,7 @@ const ResetPassword = ({ history, location, refetch }) => {
                     )}
 
                     <Spacing bottom="md">
-                        <H1>Password Reset</H1>
+                        <H1>Đặt lại mật khẩu</H1>
                     </Spacing>
 
                     <form onSubmit={(e) => handleSubmit(e, resetPassword)}>
@@ -109,7 +109,7 @@ const ResetPassword = ({ history, location, refetch }) => {
                             name="password"
                             values={password}
                             onChange={handleChange}
-                            placeholder="Password"
+                            placeholder="Mật khẩu"
                         />
 
                         <Spacing top="xs" bottom="sm">
@@ -118,7 +118,7 @@ const ResetPassword = ({ history, location, refetch }) => {
                                 name="confirmPassword"
                                 values={confirmPassword}
                                 onChange={handleChange}
-                                placeholder="Confirm Password"
+                                placeholder="Xác nhận mật khẩu"
                             />
                         </Spacing>
 
@@ -128,7 +128,7 @@ const ResetPassword = ({ history, location, refetch }) => {
                             </Spacing>
                         )}
 
-                        <Button disabled={mutationLoading}>Reset Password</Button>
+                        <Button disabled={mutationLoading}>Đặt lại mật khẩu</Button>
                     </form>
                 </>
             </Container>

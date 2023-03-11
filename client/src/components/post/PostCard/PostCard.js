@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 import { useApolloClient } from '@apollo/client';
-
+import { Divider } from '@material-ui/core'
 import { Spacing } from 'styles/Layout';
-import { A, H3 } from 'styles/Text';
+import { A } from 'styles/Text';
 import { Button } from 'styles/Form';
 
 import { DotsIcon, PostCommentIcon } from 'components/icons';
@@ -87,6 +87,10 @@ const PosterVideo = styled.video`
 const Title = styled.div`
     word-break: break-word;
     white-space: pre-line;
+    font-family: Helvetica, Arial, sans-serif !important;
+    font-size: .9375rem !important;
+    font-weight: 400;
+    line-height: 1.3333;
 `;
 
 const BottomRow = styled.div`
@@ -219,7 +223,7 @@ const PostCard = ({
 
                 <Spacing left="sm" bottom="sm" top="xs" right="sm">
                     <Title>
-                        <H3>{title}</H3>
+                        {title}
                     </Title>
                 </Spacing>
 

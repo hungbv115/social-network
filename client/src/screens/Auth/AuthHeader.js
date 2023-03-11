@@ -8,7 +8,7 @@ import SignIn from './SignIn';
 
 import * as Routes from 'routes';
 
-import logo from 'assets/logo.png';
+import logo from 'assets/header.png'
 
 const Root = styled.div`
     position: fixed;
@@ -20,6 +20,9 @@ const Root = styled.div`
     align-items: center;
     height: 80px;
     background-color: transparent;
+    box-shadow:  0 0 5px 0 #ddd;
+    padding-bottom: 20px;
+    padding-top: 15px;
 `;
 
 const StyledContainer = styled(Container)`
@@ -62,7 +65,7 @@ const AuthHeader = ({ refetch }) => {
         <Root>
             <StyledContainer maxWidth="lg">
                 <Logo to={Routes.HOME}>
-                    <img src={logo} alt="Logo" width="40" />
+                    <img src={logo} alt="Logo" width="160" />
                 </Logo>
 
                 <SignInContainer>

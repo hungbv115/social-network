@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Overlay } from 'styles/Layout';
+import { Overlayx } from 'styles/Layout';
 import { AuthHeader, SignUp, ForgotPassword, ResetPassword } from 'screens/Auth';
 
 import * as Routes from 'routes';
@@ -11,7 +11,7 @@ import * as Routes from 'routes';
 import backgroundImage from 'assets/auth.jpg';
 
 const Root = styled.div`
-    background: url(${backgroundImage}) no-repeat top / cover;
+    background: #fff;
     width: 100%;
     height: 100vh;
 `;
@@ -44,7 +44,7 @@ const Screens = styled.div`
 const AuthLayout = ({ refetch }) => {
     return (
         <Root>
-            <Overlay transparency="0.5" />
+            <Overlayx transparency="0.5" />
 
             <Container>
                 <AuthHeader refetch={refetch} />

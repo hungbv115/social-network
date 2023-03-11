@@ -75,3 +75,12 @@ export const Overlay = styled.div`
     z-index: ${(p) => p.theme.zIndex.md};
     background-color: rgba(0, 0, 0, ${(p) => (p.transparency ? p.transparency : '0.8')});
 `;
+
+export const Overlayx = styled.div`
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: ${(p) => p.theme.zIndex.md};
+`;

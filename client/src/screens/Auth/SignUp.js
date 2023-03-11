@@ -23,14 +23,14 @@ const Root = styled(Container)`
 
     @media (min-width: ${(p) => p.theme.screen.md}) {
         justify-content: space-between;
-        margin-top: 120px;
+        margin-top: 137px;
     }
 `;
 
 const Welcome = styled.div`
     display: none;
     flex-direction: column;
-    color: ${(p) => p.theme.colors.white};
+    color: #1c1e21;
     max-width: ${(p) => p.theme.screen.xs};
 
     @media (min-width: ${(p) => p.theme.screen.md}) {
@@ -197,7 +197,7 @@ const SignUp = ({ history, refetch }) => {
 
             <Welcome>
                 <div>
-                    <Heading color="white">Kết nối với bạn bè và thế giới xung quanh bạn.</Heading>
+                    <Heading color="#1c1e21">Kết nối với bạn bè và thế giới xung quanh bạn.</Heading>
                 </div>
 
                 <p>Xem ảnh và cập nhật từ bạn bè của bạn.</p>
