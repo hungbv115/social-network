@@ -11,7 +11,6 @@ import { createApolloServer } from './utils/apollo-server';
 
 connectDB()
 
-const UPLOAD_DIR_NAME = "uploads";
 // Initializes application
 const app = express();
 

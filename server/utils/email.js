@@ -1,12 +1,14 @@
 import nodemailer from 'nodemailer';
 
-const { MAIL_SERVICE, MAIL_USER, MAIL_PASS } = process.env;
+const { MAIL_SERVICE, MAIL_USER, MAIL_PASS, PORT_EMAIL } = process.env;
 
 /**
  * Creates transporter object that will help us to send emails
  */
 const transporter = nodemailer.createTransport({
-    service: MAIL_SERVICE,
+    host: MAIL_SERVICE,
+    port: PORT_EMAIL,
+    secure: true,
     auth: {
         user: MAIL_USER,
         pass: MAIL_PASS,

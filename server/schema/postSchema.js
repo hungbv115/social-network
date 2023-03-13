@@ -50,7 +50,7 @@ const PostSchema = gql`
         title: String
         image: String
         imagePublicId: String
-        author: UserPayload!
+        author: UserPayload
         likes: [Like]
         comments: [CommentPayload]
         createdAt: String
@@ -58,7 +58,7 @@ const PostSchema = gql`
     }
 
     type PostsPayload {
-        posts: [PostPayload]!
+        posts: [PostPayload]
         count: String!
     }
 
