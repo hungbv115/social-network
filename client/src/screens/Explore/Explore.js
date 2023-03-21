@@ -73,8 +73,8 @@ const Explore = () => {
             );
         }
 
-        const { posts, count } = data.getPosts;
-        if (!posts.length > 0)  return <Empty text="Chưa có bài đăng nào." />
+        const { posts, count } = data?.getPosts ?? 0;
+        if (!posts?.length > 0)  return <Empty text="Chưa có bài đăng nào." />
 
         return (
             <InfiniteScroll

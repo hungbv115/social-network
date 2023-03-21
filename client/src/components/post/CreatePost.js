@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import styled from 'styled-components';
 import { Box } from "@material-ui/core"
-import { Spacing, Overlay, Container } from 'styles/Layout';
+import { Spacing, Overlay } from 'styles/Layout';
 import { Error } from 'styles/Text';
 import { Button } from 'styles/Form';
 import Avatar from 'components/shared/Avatar';
@@ -63,7 +63,7 @@ const WrapperIcon = styled.div`
     display: flex;
     justify-content: flex-start;
     padding: ${(p) => p.theme.spacing.xs} 0;
-    border-top: 1px solid ${(p) => p.theme.colors.border.main};
+    border-top: ${(p) => + p.focusb + 'px solid #e0e0e0'};
 `;
 
 const Textarea = styled.textarea`
@@ -83,24 +83,10 @@ const Textarea = styled.textarea`
     border-radius: ${(p) => p.theme.radius.xl};
 `;
 
-// const ImagePreviewContainer = styled.div`
-//     width: 150px;
-//     height: 150px;
-//     overflow: hidden;
-//     flex-shrink: 0;
-//     box-shadow: ${(p) => p.theme.shadows.sm};
-// `;
-
 const ImagePreview = styled.img`
-    // width: 100%;
-    // height: 100%;
-    // object-fit: cover;
 `;
 
 const VideoPreview = styled.source`
-    // width: 100%;
-    // height: 100%;
-    // object-fit: cover;
 `;
 
 const Options = styled.div`
@@ -117,8 +103,10 @@ const Buttons = styled.div`
 `;
 
 const EmojiButton = styled.div`
+    z-index: 100;
     position: absolute;
-    bottom: -470px;
+    top: 125px;
+    right: 50px;
     border-color: #9a86f3;
     border-radius: 5%;
     .emoji-scroll-wrapper::-webkit-scrollbar {
@@ -145,13 +133,6 @@ const ButtonClick = styled.div`
     margin-top: 6px;
     cursor: pointer;
 `
-// const BoxWapper = styled(Box)`
-
-// `
-
-/**
- * Component for creating a post
- */
 const CreatePost = () => {
     const [{ auth }] = useStore();
     const [title, setTitle] = useState('');
@@ -281,7 +262,7 @@ const CreatePost = () => {
                     )}
 
                     {!isFocused && (
-                    <WrapperIcon>
+                    <WrapperIcon focusb="1">
                         <PostImageUpload handleChange={handlePostImageUpload} />
                         <div style={{margin: "2px"}}></div>
                         <PostVideoUpload handleChange={handlePostImageUpload} />
@@ -292,7 +273,7 @@ const CreatePost = () => {
                     (
                         image && (
                         <Box className="uploadImages">
-                            <video width="557" controls>
+                            <video width="480" controls>
                                 <VideoPreview src={URL.createObjectURL(image)} />
                             </video>
                             <CloseIcon onClick={removeImage} />
@@ -308,14 +289,14 @@ const CreatePost = () => {
 
                     {isFocused && (
                         <Options>
-                            <WrapperIcon>
+                            <WrapperIcon focusb="0">
                                 <PostImageUpload label="photo" handleChange={handlePostImageUpload} />
                                 <div style={{margin: "2px"}}></div>
                                 <PostVideoUpload label="video" handleChange={handlePostImageUpload} />
                             </WrapperIcon>
                             
                             <Buttons>
-                                <Button text type="button" onClick={handleReset}>
+                                <Button text type="button" onClick={handleReset} color="#000000">
                                     Thoát
                                 </Button>
                                 <Button disabled={isShareDisabled} type="submit">

@@ -70,6 +70,13 @@ const Image = styled.img`
     max-height: ${(p) => (p.usedInModal ? '600px' : '100%')};
 `;
 
+const PosterVideo = styled.video`
+    display: block;
+    max-width: 100%;
+    width: ${(p) => !p.usedInModal && '100%'};
+    max-height: ${(p) => (p.usedInModal ? '600px' : '100%')};
+`;
+
 const Right = styled.div`
     display: flex;
     flex-direction: column;
@@ -110,7 +117,7 @@ const PostPopup = ({ id, closeModal, usedInModal }) => {
     if (loading) return <Loading top="lg" />;
     if (error) return <NotFound />;
 
-    const post = data.getPost;
+    const post = data?.getPost;
 
     return (
         <Root usedInModal={usedInModal}>
@@ -124,7 +131,11 @@ const PostPopup = ({ id, closeModal, usedInModal }) => {
 
             <Container usedInModal={usedInModal}>
                 <Left usedInModal={usedInModal}>
-                    <Image src={post.image} usedInModal={usedInModal} />
+                    
+                    {(post.image && post.image.includes("video"))
+                ? <PosterVideo usedInModal={usedInModal} controls>
+                    <source src={post.image} type="video/mp4"/>
+                    </PosterVideo> : <Image src={post.image} usedInModal={usedInModal} /> }
                 </Left>
 
                 <Right usedInModal={usedInModal}>
@@ -140,9 +151,9 @@ const PostPopup = ({ id, closeModal, usedInModal }) => {
                             postAuthor={post.author}
                         />
                     </Spacing>
-
+                    
                     <Spacing>
-                        <PostPopupOptions postId={post.id} postAuthor={post.author} postLikes={post.likes} />
+                        <PostPopupOptions postId={post.id} postAuthor={post?.author} postLikes={post?.likes} />
 
                         <CreateComment post={post} />
                     </Spacing>

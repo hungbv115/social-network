@@ -14,7 +14,7 @@ import { NotificationType } from 'constants/NotificationType';
 
 import { useNotifications } from 'hooks/useNotifications';
 
-import  Picker, { Emoji } from 'emoji-picker-react';
+import  Picker from 'emoji-picker-react';
 
 import { useStore } from 'store';
 

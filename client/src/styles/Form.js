@@ -17,7 +17,7 @@ export const Button = styled.button`
     outline: 0;
     transition: opacity 0.1s;
     border: 0;
-    color: ${p => p.theme.colors.white};
+    color: ${p => p.color ? p.theme.colors[p.color] :  p.theme.colors.white};
     font-size: ${p => p.size ? p.theme.font.size[p.size] : p.theme.font.size.xs};
     border-radius: ${p => p.theme.radius.sm};
     padding: ${p => p.theme.spacing.xs} ${p => p.theme.spacing.sm};
@@ -71,11 +71,11 @@ export const InputText = styled.input`
     transition: border 0.1s;
     border-radius: ${(p) => p.theme.radius.md};
     padding-left: ${(p) => p.theme.spacing.xs};
-    border: 1px solid ${(p) => (p.borderColor ? p.theme.colors[p.borderColor] : p.theme.colors.border.main)};
-    color: ${(p) => p.theme.colors.text.secondary};
+    border: 1px solid #000000;
+    color: #c51162;
 
     &:focus {
-        border-color: ${(p) => p.theme.colors.border.main};
+        border-color: #e0e0e0;
     }
 `;
 

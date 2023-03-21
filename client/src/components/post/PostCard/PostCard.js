@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 import { useApolloClient } from '@apollo/client';
-import { Divider } from '@material-ui/core'
+
 import { Spacing } from 'styles/Layout';
-import { A } from 'styles/Text';
+import { A, H3 } from 'styles/Text';
 import { Button } from 'styles/Form';
 
 import { DotsIcon, PostCommentIcon } from 'components/icons';
@@ -30,8 +30,8 @@ import { timeAgo } from 'utils/date';
 
 const Root = styled.div`
     width: 100%;
-    border-radius: 10px;
-    padding-bottom: ${(p) => p.theme.spacing.xxs};
+    border-radius: ${(p) => p.theme.radius.sm};
+    padding-bottom: ${(p) => p.theme.spacing.xs};
     background-color: ${(p) => p.theme.colors.white};
     border: 1px solid ${(p) => p.theme.colors.border.main};
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -54,9 +54,9 @@ const CreatedAt = styled.div`
 `;
 
 const Author = styled(A)`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const Name = styled.span`
@@ -133,7 +133,6 @@ const CommentLine = styled.div`
     margin-bottom: 5px;
     border-top: 1px solid ${(p) => p.theme.colors.border.main};
 `;
-
 
 /**
  * Component for rendering user post
@@ -223,7 +222,7 @@ const PostCard = ({
 
                 <Spacing left="sm" bottom="sm" top="xs" right="sm">
                     <Title>
-                        {title}
+                        <H3>{title}</H3>
                     </Title>
                 </Spacing>
 
@@ -243,13 +242,13 @@ const PostCard = ({
                         </Count>
 
                     </CountAndIcons>
-                    <Icons>
-                        <Like fullWidth withText user={author} postId={postId} likes={likes} />
-                        
-                        <Button fullWidth text onClick={toggleCreateComment}>
-                            <PostCommentIcon /> <Spacing inline left="xxs" /> <b>Bình Luận</b>
-                        </Button>
-                    </Icons>
+                        <Icons>
+                            <Like fullWidth withText user={author} postId={postId} likes={likes} />
+
+                            <Button fullWidth text onClick={toggleCreateComment}>
+                                <PostCommentIcon /> <Spacing inline left="xxs" /> <b>Bình luận</b>
+                            </Button>
+                        </Icons>
 
                     {isCommentOpen && (
                         <>

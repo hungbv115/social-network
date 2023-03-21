@@ -132,15 +132,20 @@ const SignUp = ({ history, refetch }) => {
         setValues({ ...values, [name]: value });
     };
     
+    
+
+
 
     const validate = () => {
         if (!firstName || !lastName || !email || !username || !password) {
             return 'Hãy điền thông tin tất cả các trường';
         }
 
-        var fullName = firstName + " " + lastName;
+        if ((firstName).length > 50) {
+            return 'Họ đầy đủ không quá 50 ký tự';
+        }
 
-        if ((fullName).length > 50) {
+        if ((lastName).length > 50) {
             return 'Tên đầy đủ không quá 50 ký tự';
         }
 
@@ -174,8 +179,8 @@ const SignUp = ({ history, refetch }) => {
 
         try {
             const response = await signup({
-                variables: { input: { fullName: firstName + " " + lastName, email, password, username, 
-                birthDay: "ngày " + day + " " + month + " năm " + year, gender } },
+                variables: { input: { fullName: firstName.concat(' ', lastName), email, password, username, 
+                birthDay: "ngày " + day + " tháng" + month + " năm " + year, gender } },
             });
             localStorage.setItem('token', response.data.signup.token);
             await refetch();
@@ -219,7 +224,7 @@ const SignUp = ({ history, refetch }) => {
                                 values={firstName}
                                 onChange={handleChange}
                                 placeholder="Họ"
-                                borderColor="white"
+                                bordercolor="white"
                             />
                             <TextField 
                                 type="text"
@@ -227,7 +232,7 @@ const SignUp = ({ history, refetch }) => {
                                 values={lastName}
                                 onChange={handleChange}
                                 placeholder="Tên"
-                                borderColor="white"
+                                bordercolor="white"
                                 style={{marginLeft:"5px"}}
                             />
                         </Box>
@@ -237,7 +242,7 @@ const SignUp = ({ history, refetch }) => {
                             values={email}
                             onChange={handleChange}
                             placeholder="Email"
-                            borderColor="white"
+                            bordercolor="white"
                         />
                         <TextField 
                             type="text"
@@ -245,7 +250,7 @@ const SignUp = ({ history, refetch }) => {
                             values={username}
                             onChange={handleChange}
                             placeholder="Tài khoản đăng nhập"
-                            borderColor="white"
+                            bordercolor="white"
                         />
                         <TextField 
                             type="password"
@@ -253,7 +258,7 @@ const SignUp = ({ history, refetch }) => {
                             values={password}
                             onChange={handleChange}
                             placeholder="Mật khẩu"
-                            borderColor="white"
+                            bordercolor="white"
                         />
                     </FormControl>
                     

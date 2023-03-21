@@ -19,7 +19,7 @@ const Root = styled.div`
     left: 0;
     padding-top: ${HEADER_HEIGHT + 40}px;
     height: 100%;
-    width: ${SIDEBAR_DESKTOP_WIDTH - 80}px;
+    width: ${SIDEBAR_MOBILE_WIDTH - 60}px;
     transition: margin-left 0.2s ease-in-out;
     font-size: ${(p) => p.theme.font.size.xxs};
     z-index: ${(p) => p.theme.zIndex.sm};
@@ -36,6 +36,10 @@ const Root = styled.div`
         flex-shrink: 0;
         border: 0;
         background-color: transparent;
+    }
+
+    @media (max-width: ${(p) => p.theme.screen.sm}) {
+        width: ${SIDEBAR_MOBILE_WIDTH - 110}px;
     }
 
     @media (max-width: ${(p) => p.theme.screen.md}) {

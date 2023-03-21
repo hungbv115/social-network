@@ -22,7 +22,6 @@ const StyledButton = styled(Button)`
     padding: ${(p) => p.theme.spacing.xs} 0;
 `;
 
-
 /**
  * Component for rendering Like button
  */
@@ -77,7 +76,7 @@ const Like = ({ postId, user, likes, withText, fullWidth }) => {
             color={hasLiked && 'primary.main'}
         >
             <LikeIcon color={hasLiked && 'primary.main'} />
-                <Spacing inline left="xxs" />
+            <Spacing inline left="xxs" />
             {withText && <b>Thích</b>}
         </StyledButton>
     );

@@ -10,11 +10,11 @@ import theme from 'theme';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = 'http://103.149.28.204:8081/graphql';
 
 // GraphQL WebSocket (subscriptions) URL.
 // If its url is not set in .env then it has same url, host and pathname
-const WEBSOCKET_API_URL = process.env.REACT_APP_WEBSOCKET_API_URL;
+const WEBSOCKET_API_URL = 'ws://103.149.28.204:8081/graphql';
 const websocketApiUrl = WEBSOCKET_API_URL
   ? WEBSOCKET_API_URL
   : API_URL.replace('https://', 'ws://').replace('http://', 'ws://');
@@ -23,15 +23,13 @@ const websocketApiUrl = WEBSOCKET_API_URL
 const apolloClient = createApolloClient(API_URL, websocketApiUrl);
 
 ReactDOM.render(
-  <React.StrictMode>
     <ApolloProvider client={apolloClient}>
       <ThemeProvider theme={theme}>
         <StoreProvider>
           <App />
         </StoreProvider>
       </ThemeProvider>
-    </ApolloProvider>
-  </React.StrictMode>,
+    </ApolloProvider>,
   document.getElementById('root')
 );
 
