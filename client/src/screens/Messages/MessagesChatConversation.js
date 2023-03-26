@@ -274,6 +274,10 @@ const MessagesChatConversation = ({ messages, authUser, chatUser, data, match })
         setShowEmojiPicker(!showEmojiPicker);
     };
 
+    const handleEmojiPickerclose = () => {
+        setShowEmojiPicker(false);
+    };
+
     const sendMessage = async (e) => {
         e.preventDefault();
 
@@ -389,6 +393,7 @@ const MessagesChatConversation = ({ messages, authUser, chatUser, data, match })
                             <PostVideoUpload handleChange={handlePostImageUpload} />
                         </WrapperIcon>)}
                         <StyledTextarea
+                            onClick={handleEmojiPickerclose}
                             placeholder="Aa"
                             value={messageText}
                             onChange={(e) => setMessageText(e.target.value)}
@@ -429,7 +434,7 @@ const MessagesChatConversation = ({ messages, authUser, chatUser, data, match })
                     ))}
                     
                     
-                    <SendButton type="submit" ghost>
+                    <SendButton onClick={handleEmojiPickerclose} type="submit" ghost>
                         <SendIcon width="28" />
                     </SendButton>
                 </Form>

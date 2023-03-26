@@ -180,7 +180,7 @@ const SignUp = ({ history, refetch }) => {
         try {
             const response = await signup({
                 variables: { input: { fullName: firstName.concat(' ', lastName), email, password, username, 
-                birthDay: "ngày " + day + " tháng" + month + " năm " + year, gender } },
+                birthDay: "ngày " + day + " " + month + " năm " + year, gender } },
             });
             localStorage.setItem('token', response.data.signup.token);
             await refetch();

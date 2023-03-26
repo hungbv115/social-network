@@ -24,11 +24,9 @@ const Container = styled.div`
     border-radius: ${(p) => p.theme.radius.sm};
     width: 100%;
     margin-top: 80px;
-
     @media (min-width: ${(p) => p.theme.screen.sm}) {
         width: 450px;
     }
-
     @media (min-width: ${(p) => p.theme.screen.md}) {
         margin-top: auto;
     }
@@ -57,7 +55,7 @@ const ForgotPassword = () => {
 
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(String(email).toLowerCase())) {
-            setError('Enter a valid email address.');
+            setError('Nhập địa chỉ email hợp lệ.');
             return;
         }
 
@@ -91,9 +89,9 @@ const ForgotPassword = () => {
 
             <Container>
                 <Spacing bottom="sm">
-                    <H1>Reset Password</H1>
+                    <H1>Đặt lại mật khẩu</H1>
                     <Text>
-                        Enter the email address associated with your account, and we’ll email you a link to reset your password.
+                    Nhập địa chỉ email được liên kết với tài khoản của bạn và chúng tôi sẽ gửi email cho bạn một liên kết để đặt lại mật khẩu của bạn.
                     </Text>
                 </Spacing>
 
@@ -108,10 +106,10 @@ const ForgotPassword = () => {
 
                     <Spacing top="xs" />
 
-                    <Button disabled={loading}>Send reset link</Button>
+                    <Button disabled={loading}>Gửi đường dẫn</Button>
 
                     <Spacing top="sm">
-                        <A to={Routes.HOME}>&larr; Back to Sign Up</A>
+                        <A to={Routes.HOME}>&larr; Quay lại</A>
                     </Spacing>
                 </form>
             </Container>

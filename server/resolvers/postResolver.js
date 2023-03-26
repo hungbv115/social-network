@@ -120,7 +120,7 @@ const Mutation = {
      */
     createPost: async (root, { input: { title, image, authorId } }, { Post, User }) => {
         if (!title && !image) {
-            throw new Error('Post title or image is required');
+            throw new Error('Tiêu đề bài viết hoặc hình ảnh là bắt buộc');
         }
 
         let imageUrl1, imagePublicId;
@@ -140,7 +140,7 @@ const Mutation = {
             console.log(
             `[Error]: Message: ${error.message}, Stack: ${error.stack}`
             );
-            throw new ApolloError("Error uploading file");
+            throw new ApolloError("Lỗi khi tải tệp lên");
         }
         if(mimetype.indexOf("image") !== -1) {
             imageUrl1 = process.env.MINIO_ENDPOINT_MINIO + "/v?filename=post/" + reFileName;

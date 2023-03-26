@@ -6,7 +6,7 @@
 export const timeAgo = (unixTimestamp) => {
     const date = new Date(parseInt(unixTimestamp));
 
-    const seconds = Math.round((new Date() - date) / 1000);
+    const seconds = Math.round((new Date() - date) / 1000) + 1;
     let interval = Math.round(seconds / 31536000);
   
     if (interval >= 1) {

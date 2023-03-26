@@ -26,7 +26,7 @@ export const A = styled(Link)`
  * Component for wrapping error messages
  */
 export const Error = styled.div`
-    color: ${(p) => (p.color ? p.theme.colors[p.color] : p.theme.colors.error.main)};
+    color: #f44336;
     font-size: ${(p) => (p.size ? p.theme.font.size[p.size] : p.theme.font.size.sm)};
 `;
 

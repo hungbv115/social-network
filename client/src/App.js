@@ -26,7 +26,7 @@ const App = () => {
     const { loading, subscribeToMore, data, error, refetch } = useQuery(GET_AUTH_USER);
 
     useEffect(() => {
-        const unsubscribe = subscribeToMore({
+        subscribeToMore({
             document: NOTIFICATION_CREATED_OR_DELETED,
             updateQuery: async (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
@@ -62,18 +62,13 @@ const App = () => {
 
                 
                 clonedObject = {...clonedObject, newNotifications: newNotifications}
-                
                 return { getAuthUser:  clonedObject};
             }
         });
-
-        return () => {
-            unsubscribe();
-        }
     }, [subscribeToMore]);
 
     useEffect(() => {
-        const unsubscribe = subscribeToMore({
+        subscribeToMore({
             document: GET_NEW_CONVERSATIONS_SUBSCRIPTION,
             updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
@@ -105,10 +100,6 @@ const App = () => {
                 return { getAuthUser: clonedObject };
             }
         });
-
-        return () => {
-            unsubscribe();
-        }
     }, [subscribeToMore]);
 
     if (loading) return <Loading top="xl" />;

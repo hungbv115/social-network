@@ -26,7 +26,7 @@ const InputContainer = styled(Spacing)`
 
 const ErrorMessage = styled.div`
     position: absolute;
-    top: 1px;
+    top: 60px;
 `;
 
 const ForgotPassword = styled.div`
@@ -60,7 +60,7 @@ const SignIn = ({ history, location, refetch }) => {
         e.preventDefault();
 
         if (!emailOrUsername || !password) {
-            setError('All fields are required');
+            setError('Điền tất cả thông tin được yêu cầu');
             return;
         }
 
@@ -85,7 +85,7 @@ const SignIn = ({ history, location, refetch }) => {
                 <InputContainer>
                     {error && (
                         <ErrorMessage>
-                            <Error size="xxs" color="white">
+                            <Error size="xs">
                                 {error}
                             </Error>
                         </ErrorMessage>

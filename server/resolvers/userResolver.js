@@ -277,10 +277,10 @@ const Query = {
             },
         });
         if (!user) {
-            throw new Error('This token is either invalid or expired!');
+            throw new Error('Mã thông báo này không hợp lệ hoặc đã hết hạn!');
         }
 
-        return { message: 'Success' };
+        return { message: 'Thành công' };
     },
 };
 
@@ -295,12 +295,12 @@ const Mutation = {
         const user = await User.findOne().or([{ email: emailOrUsername }, { username: emailOrUsername }]);
 
         if (!user) {
-            throw new Error('User not found');
+            throw new Error('Không tìm thấy người dùng');
         }
 
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) {
-            throw new Error('Invalid password');
+            throw new Error('Mật khẩu không hợp lệ');
         }
 
         return {
@@ -320,32 +320,32 @@ const Mutation = {
         const user = await User.findOne().or([{ email }, { username }]);
         if (user) {
             const field = user.email === email ? 'email' : 'username';
-            throw new Error(`User with given ${field} already exists.`);
+            throw new Error(`Người dùng với ${field} đã cho đã tồn tại.`);
         }
 
         // Empty field validation
         if (!fullName || !email || !username || !password) {
-            throw new Error('All fields are required.');
+            throw new Error('Hãy điền đầy đủ thông tin');
         }
 
         // FullName validation
         if (fullName.length > 40) {
-            throw new Error('Full name no more than 40 characters.');
+            throw new Error('Họ và tên không quá 40 ký tự.');
         }
         if (fullName.length < 4) {
-            throw new Error('Full name min 4 characters.');
+            throw new Error('Họ và tên tối thiểu 4 ký tự.');
         }
 
         // Email validation
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(String(email).toLowerCase())) {
-            throw new Error('Enter a valid email address');
+            throw new Error('Nhập địa chỉ email hợp lệ');
         }
 
         // Username validation
         const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
         if (!usernameRegex.test(username)) {
-            throw new Error('Usernames can only use letters, numbers, underscores and periods.');
+            throw new Error('Tên người dùng chỉ có thể sử dụng chữ cái, số, dấu gạch dưới và dấu chấm.');
         }
         if (username.length > 20) {
             throw new Error('Username no more than 20 characters.');
@@ -355,12 +355,12 @@ const Mutation = {
         }
         const frontEndPages = ['forgot-password', 'reset-password', 'explore', 'people', 'notifications', 'post'];
         if (frontEndPages.includes(username)) {
-            throw new Error("This username isn't available. Please try another.");
+            throw new Error("Tên người dùng không khả dụng. Vui lòng thử cái khác.");
         }
 
         // Password validation
         if (password.length < 6) {
-            throw new Error('Password min 6 characters.');
+            throw new Error('Mật khẩu tối thiểu 6 ký tự.');
         }
 
         const newUser = await new User({
@@ -398,7 +398,7 @@ const Mutation = {
         );
 
         // Email user reset link
-        const resetLink = `${process.env.FRONTEND_URL}/reset-password?email=${email}&token=${token}`;
+        const resetLink = `${process.env.FRONTEND_URL}reset-password?email=${email}&token=${token}`;
         const mailOptions = {
             to: email,
             subject: 'Password Reset',
@@ -409,7 +409,7 @@ const Mutation = {
 
         // Return success message
         return {
-            message: `A link to reset your password has been sent to ${email}`,
+            message: `Một liên kết để thiết lập lại mật khẩu của bạn đã được gửi đến ${email}`,
         };
     },
     /**
@@ -421,11 +421,11 @@ const Mutation = {
      */
     resetPassword: async (root, { input: { email, token, password } }, { User }) => {
         if (!password) {
-            throw new Error('Enter password and Confirm password.');
+            throw new Error('Nhập mật khẩu và Xác nhận mật khẩu.');
         }
 
         if (password.length < 6) {
-            throw new Error('Password min 6 characters.');
+            throw new Error('Mật khẩu tối thiểu 6 ký tự.');
         }
 
         // Check if user exist and token is valid
@@ -437,7 +437,7 @@ const Mutation = {
             },
         });
         if (!user) {
-            throw new Error('This token is either invalid or expired!');
+            throw new Error('Mã thông báo này không hợp lệ hoặc hết hạn!');
         }
 
         // Update password, reset token and it's expiry

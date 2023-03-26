@@ -30,8 +30,10 @@ const ButtonClick = styled.div`
     cursor: pointer;
 `
 const EmojiButton = styled.div`
+    z-index: 100;
+    margin-top: 38px;
     position: absolute;
-    top: -470px;
+    left: 20px;
     border-color: #9a86f3;
     border-radius: 5%;
     .emoji-scroll-wrapper::-webkit-scrollbar {
@@ -119,11 +121,17 @@ const CreateComment = ({ post, focus }) => {
             buttonEl.current.click();
         }
     };
+    
+    const handleEmojiPickerclose = () => {
+        setShowEmojiPicker(false);
+    };
+
 
     return (
         <Form onSubmit={handleSubmit}>
             <Options>
                 <Textarea
+                    onClick={handleEmojiPickerclose}
                     onChange={(e) => setComment(e.target.value)}
                     value={comment}
                     placeholder="Viết bình luận..."
@@ -141,6 +149,7 @@ const CreateComment = ({ post, focus }) => {
                 )}
 
                 <Button
+                    onClick={handleEmojiPickerclose}
                     type="submit"
                     color={comment ? 'primary.main' : 'grey[500]'}
                     weight="bold"

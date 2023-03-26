@@ -76,7 +76,6 @@ const Online = styled.div`
  */
 const MessagesChatHeading = ({ location, match, chatUser }) => {
     const [{ auth }] = useStore();
-    let copyIsOnline = {...chatUser};
 
     const { data, loading } = useSubscription(IS_USER_ONLINE_SUBSCRIPTION, {
         variables: {
@@ -88,7 +87,7 @@ const MessagesChatHeading = ({ location, match, chatUser }) => {
 
     // Update user's isOnline field in real time
     if (!loading && data && chatUser) {
-        copyIsOnline = {...copyIsOnline, isOnline: data.isOnline.isOnline};
+        chatUser.isOnline = data.isOnline.isOnline ? data.isOnline.isOnline : false;
     }
 
     if (match.params.userId === Routes.NEW_ID_VALUE || !chatUser) {
@@ -101,7 +100,7 @@ const MessagesChatHeading = ({ location, match, chatUser }) => {
                         backgroundColor="white"
                         // hideIcon
                         forMessage
-                        placeholder="Nhập tên của một người"
+                        placeholder="Nhập tên một người"
                         autoFocus
                     />
                 </InputContainer>
@@ -109,20 +108,20 @@ const MessagesChatHeading = ({ location, match, chatUser }) => {
         );
     }
 
-    if (copyIsOnline) {
+    if (chatUser) {
         return (
             <Root>
                 <User
                     to={generatePath(Routes.USER_PROFILE, {
-                        username: copyIsOnline.username,
+                        username: chatUser.username,
                     })}
                 >
-                    <Avatar image={copyIsOnline.image} size={40} />
+                    <Avatar image={chatUser.image} size={40} />
 
                     <Info>
-                        <FullName>{copyIsOnline.fullName}</FullName>
+                        <FullName>{chatUser.fullName}</FullName>
 
-                        {copyIsOnline.isOnline && <Online />}
+                        {chatUser.isOnline && <Online />}
                     </Info>
                 </User>
             </Root>

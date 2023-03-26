@@ -142,7 +142,6 @@ const CreatePost = () => {
     const [error, setError] = useState('');
     const [apiError, setApiError] = useState(false);
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-    // const message = useGlobalMessage();
     const [createPost, { loading }] = useMutation(CREATE_POST, {
         refetchQueries: [
             {
@@ -189,11 +188,6 @@ const CreatePost = () => {
             setVideo(true);
         }
 
-        // if (file.size >= MAX_POST_IMAGE_SIZE) {
-        //     message.error(`File size should be less then ${MAX_POST_IMAGE_SIZE / 1000000}MB`);
-        //     return;
-        // }
-
         setImage(file);
         setIsFocused(true);
         e.target.value = null;
@@ -224,6 +218,10 @@ const CreatePost = () => {
     const handleEmojiPickerhideShow = () => {
         setShowEmojiPicker(!showEmojiPicker);
     };
+    const handleEmojiPickerclose = () => {
+        setShowEmojiPicker(false);
+    };
+
 
     const isShareDisabled = loading || (!loading && !image && !title && !video);
 
@@ -237,6 +235,7 @@ const CreatePost = () => {
                         <Avatar image={auth.user.image} size={40} />
 
                         <Textarea
+                            onClick={handleEmojiPickerclose}
                             type="textarea"
                             name="title"
                             focus={isFocused}
@@ -299,7 +298,7 @@ const CreatePost = () => {
                                 <Button text type="button" onClick={handleReset} color="#000000">
                                     Thoát
                                 </Button>
-                                <Button disabled={isShareDisabled} type="submit">
+                                <Button disabled={isShareDisabled} onClick={handleEmojiPickerclose} type="submit">
                                     Đăng bài
                                 </Button>
                             </Buttons>

@@ -115,7 +115,7 @@ const MessageCount = styled.span`
 /**
  * Header of the App when user is authenticated
  */
-const Header = ({ location, toggleSideBar, authUser }) => {
+const Header = ({ location, toggleSideBar }) => {
     const [{ auth }] = useStore();
 
     const [dropdownOpen, setDropdownOpen] = useState(null);
@@ -178,8 +178,8 @@ const Header = ({ location, toggleSideBar, authUser }) => {
                 <RightSide>
                     <Spacing right="md">
                         <Button ghost onClick={() => handleIconClick('MESSAGE')}>
-                            {authUser.newConversations.length > 0 && (
-                                <MessageCount>{authUser.newConversations.length}</MessageCount>
+                            {auth.user.newConversations.length > 0 && (
+                                <MessageCount>{auth.user.newConversations.length}</MessageCount>
                             )}
 
                             <EnvelopeOpenIcon />
@@ -188,20 +188,17 @@ const Header = ({ location, toggleSideBar, authUser }) => {
 
                     <Spacing right="md">
                         <Button ghost onClick={() => handleIconClick('NOTIFICATION')}>
-                            {authUser.newNotifications.length > 0 && (
-                                <NotificationCount>{authUser.newNotifications.length}</NotificationCount>
+                            {auth.user.newNotifications.length > 0 && (
+                                <NotificationCount>{auth.user.newNotifications.length}</NotificationCount>
                             )}
 
                             <NotificationIcon />
                         </Button>
                     </Spacing>
 
-                    <Spacing right="md">
-                        <Button ghost onClick={() => handleIconClick('USER')}>
-                            <Avatar image={authUser.image} />
-                        </Button>
-                    </Spacing>
-                    
+                    <Button ghost onClick={() => handleIconClick('USER')}>
+                        <Avatar image={auth.user.image} />
+                    </Button>
                 </RightSide>
 
                 <HeaderDropDowns 
@@ -220,7 +217,6 @@ const Header = ({ location, toggleSideBar, authUser }) => {
 Header.propTypes = {
     location: PropTypes.object.isRequired,
     toggleSideBar: PropTypes.func.isRequired,
-    authUser: PropTypes.object.isRequired,
 };
 
 export default withRouter(Header);
